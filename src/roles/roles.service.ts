@@ -21,8 +21,6 @@ export class RolesService {
   }
 
   async getRoleByValue(value: string): Promise<Role | undefined> {
-    // TODO: realized getRoleByValue(value);
-    return undefined
-    // return await this.roleRepository.findOne({ where: { value } });
+    return await this.roleRepository.findOne({ where: { value } });
   }
 }
