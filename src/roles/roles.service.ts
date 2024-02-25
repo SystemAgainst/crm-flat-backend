@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Role } from './roles.entity';
 import { CreateRoleDto } from './dto/create-role.dto';
 
+
 @Injectable()
 export class RolesService {
 
@@ -22,5 +23,9 @@ export class RolesService {
 
   async getRoleByValue(value: string): Promise<Role | undefined> {
     return await this.roleRepository.findOne({ where: { value } });
+  }
+
+  async getAllRoles(): Promise<Role[] | undefined> {
+    return await this.roleRepository.find();
   }
 }
