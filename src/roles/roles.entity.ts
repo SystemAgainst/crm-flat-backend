@@ -1,11 +1,12 @@
 import {
   Column,
   CreateDateColumn,
-  Entity,
+  Entity, JoinTable, ManyToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from '../users/users.entity';
 
 
 @Entity()
@@ -21,6 +22,9 @@ export class Role {
   @ApiProperty({example: 'Администратор', description: 'Описание роли'})
   @Column()
   description: string;
+
+  @ManyToMany(() => User, (user) => user.roles)
+  users: User[];
 
   @ApiProperty({example: '2024-02-25 13:42:59.746314', description: 'Пользователь создан'})
   @CreateDateColumn()
