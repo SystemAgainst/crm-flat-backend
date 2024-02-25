@@ -9,12 +9,12 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api/v1');
 
-  const swaggerConfig = new DocumentBuilder()
+  const config = new DocumentBuilder()
     .setTitle('Бэкенд для CRM-FLAT')
     .setDescription('Документация REST API')
     .setVersion('1.0.0')
     .build()
-  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/v1/docs', app, document);
 
   await app.listen(PORT);
