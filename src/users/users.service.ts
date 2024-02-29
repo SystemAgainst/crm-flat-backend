@@ -29,11 +29,14 @@ export class UsersService {
   }
 
   async getAllUsers(): Promise<User[] | undefined> {
-    return await this.userRepository.find({relations: {roles: true}});
+    return await this.userRepository.find({ relations: {roles: true }});
   }
 
   async getUserByEmail(email: string): Promise<User> {
-    return await this.userRepository.findOne({where: {email}, relations: {roles: true}});
+    return await this.userRepository.findOne({
+      where: { email },
+      relations: { roles: true },
+    });
   }
 
   // TODO: Создать метод для удаления Роли (User)
