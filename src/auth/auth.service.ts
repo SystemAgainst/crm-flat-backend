@@ -13,8 +13,8 @@ export class AuthService {
   ) {}
 
   async login(userDto: CreateUserDto) {
-    // TODO
-    return undefined;
+    const user = await this.validateUser(userDto);
+    return this.generateToken(user);
   }
 
   async registration(userDto: CreateUserDto) {
@@ -37,5 +37,16 @@ export class AuthService {
     return {
       token: this.jwtService.sign(payload)
     }
+  }
+
+  private async validateUser(userDto: CreateUserDto) {
+    const user = await this.usersService.getUserByEmail(userDto.email);
+
+    const isPasswordEqual: boolean = bcrypt.compareSync(userDto.password, user.password);
+    if (!isPasswordEqual && !user) {
+      throw new BadRequestException('Password does not match');
+    }
+
+    return user;
   }
 }
